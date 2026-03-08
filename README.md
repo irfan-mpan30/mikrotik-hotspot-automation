@@ -31,12 +31,12 @@ Implemented user profiles with strict Rate Limiting (Bandwidth limit) to ensure 
 *(Here are the visual representations of the Captive Portal)*
 
 **Login Page & Connected Status**
-![Login Page](assets/login-preview.png)
-![Status Page](assets/status-preview.png)
+![Login Page](assets/login.png)
+![Status Page](assets/status.png)
 
 **Success & Error Pages**
-![Success Page](assets/alogin-preview.png)
-![Error Page](assets/error-preview.png)
+![Success Page](assets/alogin.png)
+![Error Page](assets/error.png)
 
 ## 🛠️ Tech Stack & Tools Used
 * **Networking:** MikroTik RouterOS, Winbox, LAN/WLAN Configuration, DHCP, DNS, NAT.
