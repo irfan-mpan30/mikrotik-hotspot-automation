@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <meta http-equiv="refresh" content="6; url=$(link-redirect)">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>Login Berhasil - SDN Sindangsari 02</title>
+    
+    <style>
+        :root {
+            --primary: #D32F2F; /* Merah SD */
+            --primary-hover: #B71C1C;
+            --bg-color: #f0f4f8;
+            --text-dark: #333333;
+            --text-muted: #777777;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#d7e1ec 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .success-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9); transform: translateY(20px); }
+            100% { opacity: 1; transform: scale(1); transform: translateY(0); }
+        }
+
+        .header {
+            background: #4CAF50; /* Warna Hijau penanda Sukses */
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .icon-success {
+            font-size: 50px;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        /* Kotak Informasi User */
+        .user-info {
+            background: #f9f9f9;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .user-info span {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .user-info small {
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* Kotak Tata Tertib Edukasi */
+        .rules {
+            text-align: left;
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #FF9800;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .rules h3 {
+            font-size: 13px;
+            color: #e65100;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rules ul {
+            padding-left: 20px;
+            font-size: 12px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .loader-text {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f4f4f4;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        /* Animasi Angka Hitung Mundur */
+        #angkaMundur {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--primary);
+            padding: 0 4px;
+        }
+
+        .btn-manual {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .btn-manual:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-status {
+            display: block;
+            width: 100%;
+            background: transparent;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-status:hover {
+            background: #f0f0f0;
+            color: var(--text-dark);
+        }
+    </style>
+
+    <script>
+        function startClock() {
+            // Membuka popup status (Bawaan MikroTik)
+            $(if popup == 'true')
+            open('$(link-status)', 'hotspot_status', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=290,height=200');
+            $(endif)
+            
+            // Pengaturan Hitung Mundur
+            var waktuTersisa = 5; // Mulai dari 5 detik
+            var elemenAngka = document.getElementById("angkaMundur");
+
+            // Fungsi ini akan berjalan otomatis setiap 1 detik (1000 milidetik)
+            var hitungMundur = setInterval(function() {
+                waktuTersisa--; // Kurangi angka 1
+                
+                // Update teks angka di layar
+                if (elemenAngka) {
+                    elemenAngka.innerText = waktuTersisa;
+                }
+                
+                // Jika waktu sudah habis (0)
+                if (waktuTersisa <= 0) {
+                    clearInterval(hitungMundur); // Hentikan hitungan
+                    location.href = unescape('$(link-redirect-esc)'); // Alihkan ke internet
+                }
+            }, 1000);
+        }
+    </script> 
+</head>
+
+<body onLoad="startClock()">
+    <div class="success-card">
+        
+        <div class="header">
+            <div class="icon-success">✅</div>
+            <h1>Akses Diberikan!</h1>
+            <p style="font-size: 13px; opacity: 0.9;">SDN Sindangsari 02</p>
+        </div>
+
+        <div class="content">
+            <div class="user-info">
+                Selamat Datang,
+                <span>$(username)</span>
+                <small>IP Address Anda: $(ip)</small>
+            </div>
+
+            <div class="rules">
+                <h3>💡 Tata Tertib Internet:</h3>
+                <ul>
+                    <li>Gunakan internet untuk keperluan belajar.</li>
+                    <li>Dilarang mengakses konten negatif.</li>
+                    <li>Silakan "Logout" jika sudah selesai agar kuota aman.</li>
+                </ul>
+            </div>
+            
+            <div class="loader-text">
+                ⏳ Masuk otomatis dalam <span id="angkaMundur">5</span> detik...
+            </div>
+            
+            <a href="$(link-redirect)" class="btn-manual">🌐 Mulai Browsing</a>
+            <a href="$(link-status)" class="btn-status">📊 Lihat Status Kuota</a>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Kesalahan - SDN Sindangsari 02</title>
+    
+    <style>
+        :root {
+            --primary: #D32F2F; /* Merah SD */
+            --primary-hover: #B71C1C;
+            --bg-color: #f0f4f8;
+            --text-dark: #333333;
+            --text-muted: #777777;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#d7e1ec 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .error-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            animation: shake 0.5s ease;
+        }
+
+        /* Animasi getar kecil penanda error */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        .header {
+            background: #F44336; /* Merah Peringatan */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .desc-msg {
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Kotak khusus untuk menampilkan variabel $(error) dari MikroTik */
+        .error-box {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            border: 1px solid #ffcdd2;
+            border-left: 4px solid #c62828;
+            text-transform: capitalize;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: var(--text-dark); /* Warna tombol netral/gelap */
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-login:hover {
+            background: #111;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            color: #999;
+            background: #fdfdfd;
+            border-top: 1px solid #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-card">
+        <div class="header">
+            <div class="icon">⚠️</div>
+            <h1>Oops! Terjadi Kesalahan</h1>
+            <p>Sistem Hotspot SDN Sindangsari 02</p>
+        </div>
+
+        <div class="content">
+            <div class="desc-msg">
+                Sistem menolak permintaan Anda. Berikut adalah detail kesalahannya:
+            </div>
+            
+            <div class="error-box">
+                $(error)
+            </div>
+
+            <form action="$(link-login)" name="login">
+                <button type="submit" class="btn-login">Kembali ke Halaman Login</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            Jika masalah berlanjut, hubungi Administrator (Guru/Operator).
+        </div>
+    </div>
+
+</body>
+</html>

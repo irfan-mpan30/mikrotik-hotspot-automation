@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Sesi Berakhir - SDN Sindangsari 02</title>
+    
+    <style>
+        :root {
+            --primary: #D32F2F; /* Merah SD */
+            --primary-hover: #B71C1C;
+            --bg-color: #f0f4f8;
+            --text-dark: #333333;
+            --text-muted: #777777;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#d7e1ec 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .logout-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .header {
+            background: #FF9800; /* Oranye penanda Logout */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .thank-you-msg {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background: #fdfdfd;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .stats-table th, .stats-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+        }
+
+        .stats-table tr:last-child th, .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .stats-table th {
+            text-align: left;
+            color: var(--text-muted);
+            font-weight: normal;
+            background: #f9f9f9;
+            width: 45%;
+        }
+
+        .stats-table td {
+            text-align: right;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-hover);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            color: #999;
+            background: #fdfdfd;
+            border-top: 1px solid #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logout-card">
+        <div class="header">
+            <div class="icon">👋</div>
+            <h1>Koneksi Terputus</h1>
+            <p>Sesi internet Anda telah diakhiri.</p>
+        </div>
+
+        <div class="content">
+            <div class="thank-you-msg">
+                Terima kasih telah menggunakan layanan WiFi <b>SDN Sindangsari 02</b>. Berikut adalah rincian penggunaan Anda:
+            </div>
+            
+            <table class="stats-table">
+                <tr>
+                    <th>Username</th>
+                    <td>$(username)</td>
+                </tr>
+                <tr>
+                    <th>Alamat IP</th>
+                    <td>$(ip)</td>
+                </tr>
+                <tr>
+                    <th>MAC Address</th>
+                    <td>$(mac)</td>
+                </tr>
+                <tr>
+                    <th>Waktu Pakai</th>
+                    <td>$(uptime)</td>
+                </tr>
+                <tr>
+                    <th>Data Terpakai</th>
+                    <td>$(bytes-in-nice) / $(bytes-out-nice)</td>
+                </tr>
+            </table>
+
+            <form action="$(link-login)" name="login" onSubmit="return openLogin()">
+                <button type="submit" class="btn-login">Login Kembali</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            Powered by SDN SINDANGSARI 02
+        </div>
+    </div>
+
+</body>
+</html>

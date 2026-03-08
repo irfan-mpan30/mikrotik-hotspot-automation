@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Status Koneksi - SDN Sindangsari 02</title>
+    
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+    $(endif)
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    
+    <style>
+        :root {
+            --primary: #D32F2F; /* Merah SD */
+            --bg-color: #f0f4f8;
+            --text-dark: #333333;
+            --text-muted: #777777;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#d7e1ec 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .status-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 5px solid #FFC107;
+        }
+
+        .header .icon {
+            font-size: 40px;
+            margin-bottom: 5px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .welcome-msg {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .welcome-msg span {
+            color: var(--primary);
+        }
+
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        .status-table th, .status-table td {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+        }
+
+        .status-table th {
+            text-align: left;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        .status-table td {
+            text-align: right;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        .btn-logout {
+            width: 100%;
+            background: #FFC107; /* Kuning Peringatan */
+            color: #333;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #e0a800;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            color: #999;
+            background: #fdfdfd;
+            border-top: 1px solid #f0f0f0;
+        }
+    </style>
+    
+    <script>
+        $(if advert-pending == 'yes')
+            var popup = '';
+            function focusAdvert() {
+                if (window.focus) popup.focus();
+            }
+            function openAdvert() {
+                popup = open('$(link-advert)', 'hotspot_advert', '');
+                setTimeout("focusAdvert()", 1000);
+            }
+        $(endif)
+        
+        function openLogout() {
+            if (window.name != 'hotspot_status') return true;
+            open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+            window.close();
+            return false;
+        }
+    </script>
+</head>
+
+<body $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+
+    <div class="status-card">
+        <div class="header">
+            <div class="icon">📊</div>
+            <h1>SDN SINDANGSARI 02</h1>
+            <p>Informasi Data & Waktu</p>
+        </div>
+
+        <div class="content">
+            
+            <div class="welcome-msg">
+                $(if login-by == 'trial')
+                    Halo, <span>Pengguna Tamu!</span>
+                $(elif login-by != 'mac')
+                    Halo, <span>$(username)!</span>
+                $(endif)
+            </div>
+            
+            <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+                <table class="status-table">
+                    <tr>
+                        <th>Alamat IP</th>
+                        <td>$(ip)</td>
+                    </tr>
+                    <tr>
+                        <th>Data Terpakai (Up / Down)</th>
+                        <td>$(bytes-in-nice) / $(bytes-out-nice)</td>
+                    </tr>
+                    
+                    $(if session-time-left)
+                    <tr>
+                        <th>Waktu Pakai / Sisa</th>
+                        <td>$(uptime) / $(session-time-left)</td>
+                    </tr>
+                    $(else)
+                    <tr>
+                        <th>Terhubung Selama</th>
+                        <td>$(uptime)</td>
+                    </tr>
+                    $(endif)
+                    
+                    $(if blocked == 'yes')
+                    <tr>
+                        <th>Status</th>
+                        <td><a href="$(link-advert)" target="hotspot_advert" style="color:red;">Butuh Iklan</a></td>
+                    </tr>
+                    $(elif refresh-timeout)
+                    <tr>
+                        <th>Refresh Otomatis</th>
+                        <td>$(refresh-timeout)</td>
+                    </tr>
+                    $(endif)
+                </table>
+
+                $(if login-by-mac != 'yes')
+                <button type="submit" class="btn-logout">Putuskan Koneksi (Logout)</button>
+                $(endif)
+            </form>
+            
+        </div>
+
+        <div class="footer">
+            Pastikan logout jika sudah selesai agar kuota Anda aman.
+        </div>
+    </div>
+
+</body>
+</html>
